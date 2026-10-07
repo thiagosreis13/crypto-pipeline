@@ -6,6 +6,7 @@ from crypto.pipeline import extract_load_dados
 dag = DAG(
     'crypto',
     schedule = '@daily',
+    max_active_runs=1,
     default_args={
         'owner': 'airflow',
         'retries': 1,
