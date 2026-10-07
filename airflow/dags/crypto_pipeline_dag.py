@@ -2,6 +2,7 @@ from airflow import DAG
 from datetime import datetime
 from airflow.providers.standard.operators.python import PythonOperator
 from crypto.pipeline import extract_load_dados
+from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
 
 dag = DAG(
     'crypto',
@@ -24,3 +25,12 @@ extract_load_task = PythonOperator(
     op_kwargs={"moeda": "usd", "qtd": "5", "destino":"top5_NovaVersao", "host":"host.docker.internal"},
     dag=dag
 )
+
+sync_task = AirbyteTriggerSyncOperator(
+    task_id ='sync_task',
+    airbyte_conn_id = 'airbyte_default',
+    connection_id = '051fb477-00a3-47cd-868d-b3273ac10a39',
+    dag=dag
+)
+
+extract_load_task >> sync_task
