@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_top5_nova_versao
+    description: registro por moeda - atualizacao CoinGecko
+    data_tests: 
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - id
+              - last_updated
+    columns:
+      - name: id
+        description: o identificador da moeda definido pela CoinGecko
+        data_tests: 
+          - not_null
+      - name: last_updated
+        description: quando a CoinGecko atualizou o preço da moeda; junto com o id, forma a chave da linha.
+        data_tests: 
+          - not_null

@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: airbyte_crypto
+    schema: public
+    tables:
+      - name: top5_NovaVersao
