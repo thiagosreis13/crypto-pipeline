@@ -30,3 +30,5 @@ models:
   crypto_dbt:
     # Config indicated by + and applies to all files under models/
     +materialized: view
+    staging:
+      +materialized: table
